@@ -3,8 +3,15 @@
  * Provides functions to interact with the backend REST API.
  */
 
-// Base URL for the backend API - configurable via environment variable
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+// Base URL for the backend API.
+// Checks REACT_APP_API_BASE first (primary env var set by the platform),
+// then REACT_APP_BACKEND_URL (alias), then REACT_APP_API_URL (legacy),
+// and finally falls back to localhost for local development.
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE ||
+  process.env.REACT_APP_BACKEND_URL ||
+  process.env.REACT_APP_API_URL ||
+  'http://localhost:3001';
 
 /**
  * Generic fetch wrapper with error handling.
